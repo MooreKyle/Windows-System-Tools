@@ -11,5 +11,5 @@ A comprehensive collection of command-line interfaces (CLI), scripts, and config
 ## Disclaimer:
 - By using this repository, you agree to use its contents at your own risk. All files are compressed (zipped) as a safety measure to prevent accidental execution.
 
-## Authors
+## Authors:
 - **Kyle Moore** - *Initial creation and development of the repository and its contents* - [MooreKyle](https://github.com/MooreKyle)
