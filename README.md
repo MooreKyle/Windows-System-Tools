@@ -1,3 +1,10 @@
+**For context:**
+This README was originally uploaded on **April 1, 2025**, with actual improvements and new references to scripts.
+However, the scripts were still in development — nowhere to be found — but putting in work with me, and just like me.
+This README stayed as the main one until **April 18, 2025**, when the scripts were released.
+
+
+
 # 🧰 Windows System Tools
 
 You've heard of plug and play, but have you considered 'click and it just works'?
