@@ -36,7 +36,8 @@ For the sake of consistency and intuitiveness, they follow the same organization
 - **4. Additional System Management**
 - **ALL SCRIPTS**
 
-Some scripts run multiple system checks (especially the combined script variations labeled x.9, where x is the whole number for the respective folder), others clean up unused files or handle power optimization. If a script needs administrator access, it tells you upfront within the documentation file, `Script Documentation and Flags.txt`. The scripts are designed 
+Some scripts run multiple system checks (especially the combined script variations labeled x.9, where x is the whole number for the respective folder), others clean up unused files or handle power optimization. If a script needs administrator access, it tells you upfront within the documentation file, `Script Documentation and Flags.txt`. The scripts are designed to fit on a quarter (1 quadrant) or half (2 quadrants) of the screen, with no horizontal scrolling required for most PC monitors.
+	- This allows for documentation to fit on-screen as reference with a script or two on-screen simultaneously, and running. This also helps multi-monitor users.
 
 This file details each scripts purposes and use-cases, list of commands in order with brief descriptions of what they do, and if a script requires administrator privileges or a network connection to fully function.
 The file is also designed to minimize horizontal scrolling, making it fit well onto a quarter (one quadrant) or half (two quadrants) of a computer screen, as shown below:
