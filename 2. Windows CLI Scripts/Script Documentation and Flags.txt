@@ -1,0 +1,386 @@
+                                                                    Copyright (c) Kyle Moore
+                                                                        GitHub.com/MooreKyle
+
+                                  Version: 1.0.0 – 2025-04-18 (See CHANGELOG.md for details)
+
+
+
+==========================================================================================
+#                                      INTRODUCTION                                      #
+==========================================================================================
+
+There are currently 16 main scripts.
+This document provides a brief description of each script’s purpose,
+lists the commands used in each one, and includes a short explanation of
+what each command does. Scripts that require administrator privileges
+or a network connection are clearly marked.
+
+
+
+==========================================================================================
+#                                        LEGEND:                                         #
+==========================================================================================
+
+(x2) = Command is run a second time (within script 0 only)
+. . . = Command is abbreviated for brevity
+(DUPE) = Command exists >1, and in another decimal script (not counting scripts ending in .9)
+✅ = Script requires 'Administrator Privileges' to fully execute
+📶 = Requires network connection for all commands to fully execute
+❌ = Script does not require 'Administrator Privileges'/'Network Connection' to fully execute
+❌📶 – Internet optional (script runs offline but benefits from network connection)
+
+
+
+==========================================================================================
+#                              SCRIPT OVERVIEW AND DETAILS                               #
+==========================================================================================
+
+
+
+======================= 0 - Cancel Pending Repairs and Maintenance =======================
+Purpose:
+Cancels maintenance tasks, scheduled shutdowns, and diagnostic flags set to run after reboot.
+Built for safety and clarity — no registry interaction. Cancels any scheduled PC shutdown
+or restart at the start of the script for ease of access (if safety checks prevent 2nd one).
+
+Commands Used:
+- shutdown /a                           – Cancels any scheduled shutdown or restart
+- tasklist | findstr TiWorker.exe...    – Detects if Windows Update is actively running
+- netstat -b | findstr bits             – Checks for BITS (background update) activity
+- chkntfs /x C:                         – Excludes drive C: from automatic CHKDSK on boot
+- shutdown /a (x2)                      – Cancels any scheduled shutdown or restart
+
+Requires Admin Privileges: ✅
+Requires Network Connection: ❌
+
+
+
+================================ 1.4 - System Performance ================================
+Purpose:
+Captures runtime system data for performance diagnostics: CPU load, memory state, 
+scheduled tasks, power efficiency, and uptime info. Useful for identifying 
+performance bottlenecks or background tasks affecting system stability.
+
+Commands Used:
+- systeminfo | find "System Boot Time"  – Displays last system boot time
+- powercfg /energy                      – Generates a 60-second energy diagnostics HTML report (to desktop)
+- schtasks /query /fo LIST >            – Lists all scheduled tasks in detailed format (to desktop)
+- schtasks /fo table                    – Lists scheduled tasks in table format
+
+Requires Admin Privileges: ✅
+Requires Network Connection: ❌
+
+
+
+================================== 1.6 - System Reports ==================================
+Purpose:
+Exports detailed reports for diagnostics and system audits. Covers energy/power efficiency, 
+battery usage, drive info, and system event history — useful for audits, diagnostics, 
+troubleshooting performance/reliability issues, or preparing technical logs.
+
+Commands Used:
+- powercfg /energy (DUPE)    – Generates a 60-second energy diagnostics HTML report (to desktop)
+- powercfg /sleepstudy       – Creates sleep/wake history HTML report (to desktop) (laptops only)
+- powercfg /batteryreport    – Exports battery usage and health HTML summary (to desktop) (laptops only)
+- wmic logicaldisk get. . .    – Shows drive letters with volume info, file system, and free/total space
+- perfmon /rel                    – Opens Reliability Monitor for system stability events
+- wevtutil qe System /c:10 /f:text  – Displays last 10 system log entries (Event Viewer, text format)
+
+Requires Admin Privileges: ✅
+Requires Network Connection: ❌
+
+
+
+============================= 1.8 - System Health and Repair =============================
+Purpose:
+Scans and repairs Windows system files using DISM and SFC.
+Also checks drive C: for pending file system errors and repair flags.
+Logs results and log results/locations for most commands that are run,
+and notifies the user.
+
+Commands Used:
+- sfc /scannow                        – Scans and repairs corrupted or missing system files
+- dism /online /cleanup-image /checkhealth      – Checks Windows image for known corruption
+- dism /online /cleanup-image /restorehealth  – Repairs detected image issues (requires Internet)
+- chkdsk /f                    – Scans and fixes file system errors on next reboot (drive C:)
+- chkdsk /r                  – Scans for bad sectors (includes /f, runs on reboot) (drive C:)
+- fsutil dirty query C:        – Reports if drive C: is flagged for CHKDSK at next boot
+
+Requires Admin Privileges: ✅
+Requires Network Connection: 📶 (for /restorehealth only)
+
+
+
+======================== 1.9 - Full System Diagnostics and Repair ========================
+Purpose:
+Combines scripts 1.4, 1.6, and 1.8 into a single, unified scan + repair session.
+(Covers performance metrics, power usage, system reports, 
+file system health, and image repair.)
+
+Commands Used:
+	- All/most commands from 1.4, 1.6, and 1.8 above
+- systeminfo | find "System Boot Time"  – Displays last system boot time
+- powercfg /energy            – Generates a 60-second energy diagnostics HTML report (to desktop)
+- schtasks /query /fo LIST >    – Lists all scheduled tasks in detailed format (to desktop)
+- schtasks /fo table             – Lists scheduled tasks in table format
+
+- powercfg /sleepstudy        – Creates sleep/wake history HTML report (to desktop) (laptops only)
+- powercfg /batteryreport        – Exports battery usage and health HTML summary (to desktop) (laptops only)
+- wmic logicaldisk get. . .    – Shows drive letters with volume info, file system, and free/total space
+- perfmon /rel                   – Opens Reliability Monitor for system stability events
+- wevtutil qe System /c:10 /f:text  – Displays last 10 system log entries (Event Viewer, text format)
+
+- sfc /scannow                   – Scans and repairs corrupted or missing system files
+- dism /online /cleanup-image /checkhealth  – Checks Windows image for known corruption
+- dism /online /cleanup-image /restorehealth  – Repairs detected image issues (requires Internet)
+- chkdsk /f                      – Scans and fixes file system errors on next reboot (drive C:)
+- chkdsk /r                      – Scans for bad sectors (includes /f, runs on reboot) (drive C:)
+- fsutil dirty query C:          – Reports if drive C: is flagged for CHKDSK at next boot
+
+Requires Admin Privileges: ✅
+Requires Network Connection: 📶 (for /restorehealth only)
+
+
+
+======================= 2.1 - System Information and Version Check =======================
+Purpose:
+Displays basic system information, version details, processor specs, graphics info, 
+startup time, installed drivers, and program version list.
+
+Commands Used:
+- winver                                       – Opens About Windows dialog (non-blocking)
+- wmic cpu get. . .                            – Outputs CPU name, cores, logical processors
+- wmic path win32_VideoController get. . .     – Displays graphics adapter model and memory info
+- dxdiag                                       – Opens DirectX Diagnostic Tool (GUI)
+- systeminfo | findstr /B /C:. . .             – Shows Windows edition and version
+- systeminfo | find "System Boot Time" (DUPE)  – Displays last system boot time
+- driverquery /fo table /v >                   – Outputs detailed driver list (to desktop)
+- driverquery /fo table                        – Lists drivers in table format
+- wmic product get name,version >              – Lists installed programs
+- powercfg /energy (DUPE)        – Generates a 60-second energy diagnostics HTML report (to desktop)
+
+Requires Admin Privileges: ❌
+Requires Network Connection: ❌
+
+
+
+================================ 3.1 - Basic Network Reset ================================
+Purpose:
+Quickly resolves common internet and local connectivity issues.
+Resets proxy settings, clears DNS cache, and refreshes IP address.
+
+Commands Used:
+- netsh winhttp reset proxy        – Resets system proxy settings (used by background apps)
+- ipconfig /release                – Disconnects by releasing current IP address
+- ipconfig /renew                  – Reconnects with a new IP address from router
+- ipconfig /flushdns               – Clears DNS resolver cache (saved website info)
+- ipconfig /renew                  – Reconnects with a new IP address from router
+- ipconfig /release                – Disconnects by releasing current IP address
+- ipconfig                         – Displays current network configuration
+
+Requires Admin Privileges: ✅
+Requires Network Connection: ❌📶 (Optional – Resets items (not to immediately test connection))
+
+
+
+========================= 3.3 - Advanced Network Troubleshooting =========================
+Purpose:
+Diagnoses persistent issues such as IP/DHCP failures, 
+DNS errors, and adapter/router misbehavior.
+
+Commands Used:
+- netsh winhttp reset proxy (DUPE)   – Resets system proxy settings (used by background apps)
+- ipconfig /release (DUPE)              – Disconnects by releasing current IP address
+- ipconfig /renew (DUPE)                – Reconnects with a new IP address from router
+- ipconfig /flushdns (DUPE)             – Clears DNS resolver cache (saved website info)
+- ipconfig /renew (DUPE)                – Reconnects with a new IP address from router
+- ipconfig /release (DUPE)              – Disconnects by releasing current IP address
+- ipconfig /all                         – Full details of all network adapters
+
+- ping duckduckgo.com                   – Tests network reachability and packet loss
+- tracert duckduckgo.com                – Traces route to remote server (shows each hop)
+- netsh wlan show networks mode=bssid   – Lists nearby Wi-Fi networks with signal info
+- netsh wlan show interfaces       – Displays all active wireless interfaces and connection details
+- netsh interface show interface        – Shows network interfaces and states
+- netstat -ano             – Shows all network connections, ports, and their owning processes
+- netstat -e                            – Shows Ethernet stats (bytes, errors)
+- netstat -rn                           – Displays IP routing table
+- route print                           – Lists full network route table (includes metrics)
+
+Requires Admin Privileges: ✅
+Requires Network Connection: 📶
+
+
+
+============================ 3.5 - Wi-Fi and LAN Diagnostics ============================
+Purpose:
+Collects diagnostic info for Wi-Fi and Ethernet adapters:
+connection status, signal quality, profiles, and routing tables.
+
+Commands Used:
+- netsh wlan show networks mode=bssid (DUPE)  – Lists nearby Wi-Fi networks with signal info
+- netsh wlan show interfaces (DUPE)      – Displays all active wireless interfaces and connection details
+- netsh interface show interface (DUPE)       – Shows network interfaces and states
+- netsh wlan show drivers                – Displays wireless driver version and capabilities
+- netsh wlan show profiles                    – Lists saved Wi-Fi network profiles
+- ipconfig /all (DUPE)                        – Full details of all network adapters
+- netstat -rn (DUPE)                          – Displays IP routing table
+- route print (DUPE)                     – Lists full network route table (includes metrics)
+
+Requires Admin Privileges: ❌
+Requires Network Connection: ❌📶 (Optional – enhanced output with live signal + routing data)
+
+
+
+====================== 3.7 - Full Network Reset (Factory Reset All) ======================
+Purpose:
+Performs a full reset of all network settings, 
+including IP stack, Winsock, DNS, firewall, and saved Wi-Fi profiles.
+
+Commands Used:
+- netsh int ip reset                – Resets TCP/IP stack
+- netsh winsock reset               – Resets Winsock catalog (socket layer)
+- netsh advfirewall reset           – Restores Windows Firewall defaults
+- netsh wlan delete profile name=*  – Deletes all saved Wi-Fi profiles
+- ipconfig /flushdns (DUPE)         – Clears DNS resolver cache (saved website info)
+- ipconfig /renew (DUPE)            – Reconnects with a new IP address from router
+- ipconfig /release (DUPE)          – Disconnects by releasing current IP address
+
+Requires Admin Privileges: ✅
+Requires Network Connection: ❌📶 (Optional – some steps require a connection to take effect)
+
+
+
+====================== 3.9 - Complete Network Reset and Troubleshoot ======================
+Purpose:
+Combines scripts 3.1, 3.3, 3.5, and 3.7 into a full 
+network diagnostics + factory reset sequence.
+
+Commands Used:
+- netsh wlan show networks mode=bssid (DUPE)  – Lists nearby Wi-Fi networks with signal info
+
+- netsh wlan show interfaces        – Displays all active wireless interfaces and connection details
+- netsh interface show interface        – Shows network interfaces and states
+- netsh wlan show drivers               – Displays wireless driver version and capabilities
+- netsh wlan show profiles              – Lists saved Wi-Fi network profiles
+- netstat -rn                           – Displays IP routing table
+
+- ipconfig /all                            – Full details of all network adapters
+- ping duckduckgo.com                      – Tests network reachability and packet loss
+- tracert duckduckgo.com                   – Traces route to remote server (shows each hop)
+- netstat -ano             – Shows all network connections, ports, and their owning processes
+- netstat -e                               – Shows Ethernet stats (bytes, errors)
+- route print                            – Lists full network route table (includes metrics)
+
+- netsh winhttp reset proxy         – Resets system proxy settings (used by background apps)
+- ipconfig /flushdns                       – Clears DNS resolver cache (saved website info)
+- ipconfig /release                        – Disconnects by releasing current IP address
+- ipconfig /renew                          – Reconnects with a new IP address from router
+
+- netsh int ip reset                       – Resets TCP/IP stack
+- netsh winsock reset                      – Resets Winsock catalog (socket layer)
+- netsh advfirewall reset                  – Restores Windows Firewall defaults
+- netsh wlan delete profile name=*         – Deletes all saved Wi-Fi profiles
+
+Requires Admin Privileges: ✅
+Requires Network Connection: 📶
+
+
+
+========================== 4.1 - System Cleanup and Maintenance ==========================
+Purpose:
+Performs general maintenance by clearing print jobs, running Disk Cleanup, 
+and restarting Windows Explorer.
+
+Commands Used:
+- net stop spooler          – Stops the Print Spooler service (used for clearing print queue)
+- del /Q /F /S %systemroot%\System32\spool\PRINTERS\*.*  – Deletes all files in printer spool folder
+- net start spooler                                     – Restarts the Print Spooler service
+- cleanmgr /d C:                                         – Opens Disk Cleanup for C: drive
+- taskkill /f /im explorer.exe                           – Force-closes Windows Explorer
+- explorer.exe                                         – Restarts Windows Explorer interface
+
+Requires Admin Privileges: ✅
+Requires Network Connection: ❌
+
+
+
+=============================== 4.3 - Windows Update Reset ===============================
+Purpose:
+Resets Windows Update components by stopping services and renaming update folders.
+Fixes stuck updates, failed installations, and related errors.
+
+Commands Used:
+- net stop wuauserv                                          – Stops Windows Update service
+- net stop cryptSvc                                          – Stops Cryptographic service
+- net stop bits                               – Stops Background Intelligent Transfer Service
+- net stop msiserver                                         – Stops Windows Installer service
+- ren CWindowsSoftwareDistribution SoftwareDistribution.old  – Renames SoftwareDistribution folder
+- ren CWindowsSystem32catroot2 catroot2.old                  – Renames catroot2 folder
+- net start wuauserv                                       – Restarts Windows Update service
+- net start cryptSvc                                        – Restarts Cryptographic service
+- net start bits                          – Restarts Background Intelligent Transfer Service
+- net start msiserver                                  – Restarts Windows Installer service
+
+Requires Admin Privileges: ✅
+Requires Network Connection: ❌
+
+
+
+========================== 4.5 - Security and Advanced Settings ==========================
+Purpose:
+Opens advanced Windows settings related to security, user accounts,
+certificates, and environment variables — all in one place.
+
+Commands Used:
+- windowsdefender:                                          – Opens Windows Security Center
+- SystemPropertiesAdvanced                         – Opens System Properties (Advanced tab)
+- netplwiz                                     – Opens advanced user accounts control panel
+- certutil -store My                            – Lists personal certificate store contents
+- rundll32 sysdm.cpl,EditEnvironmentVariables          – Opens Environment Variables window
+
+Requires Admin Privileges: ❌
+Requires Network Connection: ❌
+
+
+
+======================== 4.7 - Enable or Disable TaskSchedulerLog ========================
+Purpose:
+Toggles the Task Scheduler Operational log on or off. 
+Helps debug failed tasks or view scheduling activity.  
+View logs in: Event Viewer > TaskScheduler > Operational
+
+Commands Used:
+- wevtutil set-log Microsoft-Windows-
+  TaskScheduler/Operational                    – Enables or disables Task Scheduler logging
+
+Requires Admin Privileges: ✅
+Requires Network Connection: ❌
+
+
+
+=============== 4.8 - Advanced Task and Process Reports (Requires Task Log) ===============
+Purpose:
+Generates detailed reports of running tasks, services, startup programs, 
+and recent Task Scheduler activity (if logging is enabled).
+
+Commands Used:
+- schtasks /query /fo LIST /v >           – Lists all scheduled tasks with detailed info (to desktop)
+- sc queryex type= service state= all >   – Lists all services and their extended statuses (to desktop)
+- tasklist /v >                            – Shows all running processes with memory and CPU info (to desktop)
+- wmic startup get Caption,Command,User >    – Displays user startup programs and launch commands (to desktop)
+- wevtutil qe Microsoft-Windows-TaskScheduler/Operational
+    /q:"*[System[(EventID=200 or EventID=201) and 
+    TimeCreated[timediff(@SystemTime) <= 86400000]]]"
+    /f:text >     
+                                                      – Shows tasks run in the last 24 hours
+                                                        from Task Scheduler log (to desktop)
+
+Requires Admin Privileges: ❌
+Requires Network Connection: ❌
+
+
+
+==========================================================================================
+#                                     END OF DOCUMENT                                    #
+==========================================================================================
