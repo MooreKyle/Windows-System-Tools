@@ -66,7 +66,7 @@ The file is also designed to minimize horizontal scrolling, making it fit well o
 This is very useful when paired with Windows `Snap Assist` feature, which allows a user to drag a window to a corner or side of their screen to make the window `snap` to it. Snapping features include:
    - 4 corners (takes up one quadrant, or a quarter of the screen)
    - Left or right horizontal sides (takes up 2 quadrants, or a vertical half of the screen)
-   - Top side (
+   - Top side (takes up all 4 quadrants, going windowed full screen)
 
 ---
 
