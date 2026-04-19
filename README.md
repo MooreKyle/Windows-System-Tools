@@ -17,6 +17,7 @@ It is designed to be useful for both casual and advanced users, with strong focu
 If you're new to the project, start with these:
 
 - **Read `Script Documentation and Flags.txt` first** to understand what each script does, what commands it uses, and whether it requires administrator privileges or a network connection.
+- **Use `Update-Windows-System-Tools.bat` after first setup** if you want future project updates to be easier. Keep the updater script outside the installed project folder, such as in `C:\Scripts`.
 - **Use the test script first** if you want to confirm that Windows permissions, trust settings, or administrator access are not blocking script execution.
 - **Start with the numbered folders** based on what you need, such as diagnostics, system information, network tools, or power-related commands.
 - **Check shortcut comments** by hovering over them, since they include brief explanations and note when administrator privileges may be needed.
@@ -66,6 +67,25 @@ This pairs especially well with the Windows `Snap Assist` feature, which allows 
 
 ---
 
+### 🔹 Updater Script
+The repository also includes an external updater script: `Update-Windows-System-Tools.bat`.
+
+It is designed to:
+- check the latest project commit on GitHub
+- compare that against the updater’s saved local state
+- download a fresh copy of the project when needed
+- replace the installed project copy more safely during updates or repairs
+
+The updater is meant to be kept **outside** the installed project folder so it does not interfere with replacement during refreshes.
+
+By default, it is designed around:
+- `C:\Scripts\Update-Windows-System-Tools.bat`
+- `C:\Scripts\Windows-System-Tools`
+
+The updater includes a short introduction screen before it runs, tracks updater state through an external `.ini` file, and uses a full refresh approach instead of trying to patch only certain changed files.
+
+---
+
 ## 🔐 Why This Project Keeps Things Simple and Safe
 
 This project is built with **user control and security in mind**. That’s why:
@@ -100,6 +120,9 @@ This mainly affects scripts that are run as administrator.
 
 ### How to fix it:
 1. Create a safe folder directly on the `C:` drive, such as `C:\Scripts`
+
+   This is also the recommended base location for the updater script and installed project folder. If `C:\Scripts` does not already exist, the updater can create it when needed.
+   
 2. Move the `.bat` file there
 3. Right-click it and choose `Run as administrator`
 
