@@ -175,6 +175,7 @@ if errorlevel 1 goto :FAIL
 call :GetRemoteCommit
 if errorlevel 1 goto :FAIL
 
+echo.
 echo ====================== Current Status ======================
 echo.
 echo Latest remote commit:
