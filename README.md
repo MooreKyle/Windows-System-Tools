@@ -17,8 +17,9 @@ It is designed to be useful for both casual and advanced users, with strong focu
 If you're new to the project, start with these:
 
 - **Read `Script Documentation and Flags.txt` first** to understand what each script does, what commands it uses, and whether it requires administrator privileges or a network connection.
+- **Check `CHANGELOG.md`** if you want a clear summary of released changes or changes currently tracked under `[Unreleased]`.
 - **Use `Update-Windows-System-Tools.bat` after first setup** if you want future project updates to be easier. Before using it, copy the updater script outside the installed project folder, such as to `C:\Scripts`.
-- **Use the test script first** if you want to confirm that Windows permissions, trust settings, or administrator access are not blocking script execution.
+- **Use the test script `~CLI_Check_Script_Permissions_or_Trust~.bat` first** if you want to confirm that Windows permissions, trust settings, or administrator access are not blocking script execution.
 - **Start with the numbered folders** based on what you need, such as diagnostics, system information, network tools, or power-related commands.
 - **Check shortcut comments** by hovering over them, since they include brief explanations and note when administrator privileges may be needed.
 

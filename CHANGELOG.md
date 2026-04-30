@@ -1,6 +1,55 @@
 # 🧰 Windows System Tools – Changelog
 
-## v1.0.0 – 2025-04-18
+All notable changes to this project will be documented in this file.
+
+Changes for upcoming releases may be tracked in the [Unreleased] section as work is completed before a formal versioned release is finalized.
+
+This project uses Semantic Versioning.
+
+- PATCH (`1.0.1`) = fixes, corrections, documentation sync, and non-breaking cleanup
+- MINOR (`1.1.0`) = new scripts, utilities, or meaningful non-breaking improvements
+- MAJOR (`2.0.0`) = breaking changes or major project restructuring
+
+---
+
+## [Unreleased]
+
+### Added
+- Added new external updater script: `Update-Windows-System-Tools.bat`, for future project updates.
+  - Uses a commit-based full-refresh approach to install, update, or repair the project.
+  - Supports first install, update checks, repair reinstalls, backup-and-replacement flow, and safer recovery handling.
+  - Includes an introduction screen, clearer user-facing output, and more organized code comments.
+  - Tracks updater state through an external `.ini` file: `Windows-System-Tools-Updater.ini`.
+  - Is intended to be kept outside the installed project folder, and blocks execution from anywhere inside it.
+  - Hides PowerShell progress output by default to prevent console redraw issues, while keeping optional advanced code paths available for portable installs, updater path debugging, and visible PowerShell progress output.
+
+### Changed
+- None yet.
+
+### Fixed
+- Fixed GitHub license detection so the Apache 2.0 badge displays properly.
+- Fixed a missing blank line before the `Current Status` header in `Update-Windows-System-Tools.bat` when the install root folder is created.
+
+### Documentation
+- Revised `README.md` for better detail, clarity, readability, and newcomer guidance.
+  - Added a `Recommended Starting Points` section.
+  - Added direct references to `CHANGELOG.md`, `Update-Windows-System-Tools.bat`, and `~CLI_Check_Script_Permissions_or_Trust~.bat`.
+  - Added clearer updater usage guidance, including copying the updater outside the installed project folder before use.
+  - Clarified updater-related information in the `Updater Script` and `How to fix it:` sections.
+- Preserved the previous main README as `README (v1.0 release era).md`.
+- Finalized the structure of `CHANGELOG.md`, including release tracking, `[Unreleased]`, and Semantic Versioning guidance.
+
+### Removed
+- None yet.
+
+### Notes
+- This release establishes the new updater and changelog workflow that future project updates will build on.
+
+---
+
+## Releases
+
+## [1.0.0] - 2025-04-18
 
 ### ✅ Highlights
 - Base release complete: 16 finalized batch scripts + quadrant-ready documentation
