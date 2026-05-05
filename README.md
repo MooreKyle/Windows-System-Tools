@@ -323,7 +323,7 @@ If Windows Update itself is not working properly, you may need to update manuall
 
 ## ⚠️ Disclaimer
 
-Use these tools at your own discretion. Always read comments and headers before running shortcuts, and read the supplied documentation before running scripts. Most files are compressed or zipped to help prevent accidental execution.
+Use these tools at your own discretion. Always read comments and headers before running shortcuts, and read the supplied documentation before running scripts. Most files and folders are numbered and organized to keep related tools grouped together, easier to browse, and less likely to be opened accidentally.
 
 ---
 

@@ -36,11 +36,14 @@ This project uses Semantic Versioning.
   - Added direct references to `CHANGELOG.md`, `Update-Windows-System-Tools.bat`, and `~CLI_Check_Script_Permissions_or_Trust~.bat`.
   - Added clearer updater usage guidance, including copying the updater outside the installed project folder before use.
   - Clarified updater-related information in the `Updater Script` and `How to fix it:` sections.
+  - Updated the README's disclaimer statement to no longer mention archived folders, and to further emphasize safety practices.
 - Preserved the previous main README as `README (v1.0 release era).md`.
 - Finalized the structure of `CHANGELOG.md`, including release tracking, `[Unreleased]`, and Semantic Versioning guidance.
 
 ### Removed
-- None yet.
+- Removed an old placeholder `.Gitkeep` file from the `\2. Windows CLI Scripts` folder.
+- Removed `.rar` archive packaging from `1. Windows CLI Shortcuts`, `2. Windows CLI Scripts`, and future active project folders, leaving them directly accessible for easier browsing and access.
+	- Duplicate nested folders created by unarchiving each folder have also been deleted to reduce repetition.
 
 ### Notes
 - This release establishes the new updater and changelog workflow that future project updates will build on.
