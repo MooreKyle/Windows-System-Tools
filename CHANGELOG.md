@@ -22,6 +22,9 @@ This project uses Semantic Versioning.
   - Tracks updater state through an external `.ini` file: `Windows-System-Tools-Updater.ini`.
   - Is intended to be kept outside the installed project folder, and blocks execution from anywhere inside it.
   - Hides PowerShell progress output by default to prevent console redraw issues, while keeping optional advanced code paths available for portable installs, updater path debugging, and visible PowerShell progress output.
+- Added `Extras` folder under `2. Windows CLI Scripts` for optional demonstrations, experiments, and other content that is separate from the main utility scripts.
+- Added `Eyes Animation Demo.bat`: a Halloween-themed Windows console animation featuring 20 independently blinking eyes, randomized blinking patterns, occasional changes in focus, and more.
+  - Includes a Batch launcher (`Eyes Animation Demo.bat`) and a PowerShell animation engine (`Eyes Animation Engine.ps1`) which run together.
 
 ### Changed
 - None yet.
@@ -39,6 +42,7 @@ This project uses Semantic Versioning.
   - Updated the README's disclaimer statement to no longer mention archived folders, and to further emphasize safety practices.
 - Preserved the previous main README as `README (v1.0 release era).md`.
 - Finalized the structure of `CHANGELOG.md`, including release tracking, `[Unreleased]`, and Semantic Versioning guidance.
+- Updated the Eyes Animation Demo `README.txt` with additional feature information, clearer usage instructions, and formatting improvements for viewing alongside other windows using Windows Snap Assist.
 
 ### Removed
 - Removed an old placeholder `.Gitkeep` file from the `\2. Windows CLI Scripts` folder.
@@ -47,6 +51,7 @@ This project uses Semantic Versioning.
 
 ### Notes
 - This release establishes the new updater and changelog workflow that future project updates will build on.
+- In addition, after months of waiting for something new to update (that isn't itself), the updater script finally has something to look at.
 
 ---
 
