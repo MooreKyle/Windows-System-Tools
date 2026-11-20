@@ -1,7 +1,7 @@
-                                                                    Copyright (c) Kyle Moore
-                                                                        GitHub.com/MooreKyle
+                                                                  Copyright (c) Kyle Moore
+                                                                      GitHub.com/MooreKyle
 
-                                  Version: 1.0.0 – 2025-04-18 (See CHANGELOG.md for details)
+                                Version: 1.0.0 – 2025-04-18 (See CHANGELOG.md for details)
 
 
 
@@ -99,15 +99,19 @@ Logs results and log results/locations for most commands that are run,
 and notifies the user.
 
 Commands Used:
-- sfc /scannow                        – Scans and repairs corrupted or missing system files
 - dism /online /cleanup-image /checkhealth      – Checks Windows image for known corruption
-- dism /online /cleanup-image /restorehealth  – Repairs detected image issues (requires Internet)
-- chkdsk /f                    – Scans and fixes file system errors on next reboot (drive C:)
-- chkdsk /r                  – Scans for bad sectors (includes /f, runs on reboot) (drive C:)
-- fsutil dirty query C:        – Reports if drive C: is flagged for CHKDSK at next boot
+- dism /online /cleanup-image /restorehealth  – Repairs Windows image corruption
+- sfc /scannow                        – Scans and repairs corrupted or missing system files
+
+- CHKDSK MENU (Choose one or skip):
+    [1] chkdsk %SystemDrive% /f         – Fixes file system errors (may run on next reboot)
+    [2] chkdsk %SystemDrive% /r    – Scans for bad sectors; includes /f (may run on reboot)
+    [3] Skip CHKDSK                          – Continues without scheduling a CHKDSK repair
+	
+- fsutil dirty query %SystemDrive%   – Reports if system drive is flagged for CHKDSK at next boot
 
 Requires Admin Privileges: ✅
-Requires Network Connection: 📶 (for /restorehealth only)
+Requires Network Connection: ❌📶 (Optional – DISM /RestoreHealth may need Internet)
 
 
 
@@ -130,15 +134,19 @@ Commands Used:
 - perfmon /rel                   – Opens Reliability Monitor for system stability events
 - wevtutil qe System /c:10 /f:text  – Displays last 10 system log entries (Event Viewer, text format)
 
-- sfc /scannow                   – Scans and repairs corrupted or missing system files
-- dism /online /cleanup-image /checkhealth  – Checks Windows image for known corruption
-- dism /online /cleanup-image /restorehealth  – Repairs detected image issues (requires Internet)
-- chkdsk /f                      – Scans and fixes file system errors on next reboot (drive C:)
-- chkdsk /r                      – Scans for bad sectors (includes /f, runs on reboot) (drive C:)
-- fsutil dirty query C:          – Reports if drive C: is flagged for CHKDSK at next boot
+- dism /online /cleanup-image /checkhealth      – Checks Windows image for known corruption
+- dism /online /cleanup-image /restorehealth  – Repairs Windows image corruption
+- sfc /scannow                        – Scans and repairs corrupted or missing system files
+
+- CHKDSK MENU (Choose one or skip):
+    [1] chkdsk %SystemDrive% /f         – Fixes file system errors (may run on next reboot)
+    [2] chkdsk %SystemDrive% /r    – Scans for bad sectors; includes /f (may run on reboot)
+    [3] Skip CHKDSK                          – Skips CHKDSK without changing any scheduled repairs
+	
+- fsutil dirty query %SystemDrive%   – Reports if system drive is flagged for CHKDSK at next boot
 
 Requires Admin Privileges: ✅
-Requires Network Connection: 📶 (for /restorehealth only)
+Requires Network Connection: ❌📶 (Optional - DISM /RestoreHealth may need Internet)
 
 
 

@@ -27,11 +27,22 @@ This project uses Semantic Versioning.
   - Includes a Batch launcher (`Eyes Animation Demo.bat`) and a PowerShell animation engine (`Eyes Animation Engine.ps1`) which run together.
 
 ### Changed
-- None yet.
+- Replaced the consecutive CHKDSK scans in `1.8 - System Health and Repair.bat` and `1.9 - Full System Diagnostics and Repair.bat` with a selection menu.
+  - Users can choose a standard repair scan (`/f`), a deeper bad-sector scan (`/r`), or skip CHKDSK entirely.
+  - Improved menu input handling to accept only the available choices and handle interrupted or failed selections.
+  - Consolidated the repeated Event Viewer instructions so they appear once after either CHKDSK option, with clearer wording about results from scans performed at startup.
+- Updated CHKDSK and `fsutil dirty query` commands in both scripts to target `%SystemDrive%` instead of using a fixed `C:` drive letter.
+- Refined the repair scripts' user-facing output and internal code organization.
+  - Clarified that DISM `/RestoreHealth` may require Internet access rather than always connecting.
+  - Improved spacing around the CHKDSK menu.
+  - Added explanatory comments and menu section markers while removing outdated development notes.
 
 ### Fixed
 - Fixed GitHub license detection so the Apache 2.0 badge displays properly.
 - Fixed a missing blank line before the `Current Status` header in `Update-Windows-System-Tools.bat` when the install root folder is created.
+- Corrected the repair command order in scripts `1.8` and `1.9` to run DISM before SFC.
+  - DISM now checks and repairs the Windows image before SFC attempts to repair system files. Previously, SFC could run before its repair source had been restored, potentially requiring another SFC run after DISM completed.
+- Eliminated redundant CHKDSK execution in both scripts. Previously, `/f` and `/r` were run consecutively, even though `/r` already includes `/f`, potentially causing unnecessary or overlapping repair operations.
 
 ### Documentation
 - Revised `README.md` for better detail, clarity, readability, and newcomer guidance.
@@ -43,6 +54,12 @@ This project uses Semantic Versioning.
 - Preserved the previous main README as `README (v1.0 release era).md`.
 - Finalized the structure of `CHANGELOG.md`, including release tracking, `[Unreleased]`, and Semantic Versioning guidance.
 - Updated the Eyes Animation Demo `README.txt` with additional feature information, clearer usage instructions, and formatting improvements for viewing alongside other windows using Windows Snap Assist.
+- Updated `Script Documentation and Flags.txt` to reflect changes to scripts `1.8` and `1.9`.
+  - Corrected the documented DISM/SFC execution order and updated the DISM `/RestoreHealth` description.
+  - Added the new CHKDSK selection menu, including its available options and their purposes.
+  - Updated the `fsutil dirty query` description and system-drive references for greater accuracy.
+  - Changed the network requirement flags to indicate that Internet access may be needed for DISM repairs rather than always being required.
+  - Adjusted the topmost header alignment to match the other document headers.
 
 ### Removed
 - Removed an old placeholder `.Gitkeep` file from the `\2. Windows CLI Scripts` folder.
